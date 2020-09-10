@@ -1,0 +1,54 @@
+#include <iostream>
+
+using namespace std;
+
+long long v[100000];
+int s[1000];
+long long a,i,k,j;
+
+int main(){
+
+	cin >> a;
+
+	//Factors
+
+	for(i = 2; i < a/2; i++){
+
+		if( a%i == 0){
+
+			for(j = 0; j < 1000;j++){
+
+				if(v[j]==0){
+
+					v[j] = i;
+
+					break;
+				}
+			}
+		}	
+	}
+
+	// Prime factors 
+	for(j = 0; j < 1000; j++){
+		for(i = 2; i < v[j]/2; i++){
+
+			if(v[j]%i == 0){
+
+				v[j] = 0;
+			}
+		}	
+	}
+
+	// Largest
+	for(i = 0; i < 1000; i++){
+
+		if(v[0] < v[i]){
+
+			v[0] = v[i];
+		}
+	}
+
+	cout << v[0];
+
+	return 0;
+}
