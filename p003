@@ -1,54 +1,47 @@
-#include <iostream>
+//https://projecteuler.net/problem=3
+#include<iostream>
+#include<vector>
+#include<cmath>
 
 using namespace std;
 
-long long v[100000];
-int s[1000];
-long long a,i,k,j;
+
+std::vector<long long> factor;
+std::vector<long long > p_factor;
+
+bool isPrime(long long num){
+	bool prime = true;
+
+	for(int i=2;i<pow(num,0.5);i++){
+		if(num%i==0) prime=false;
+	}
+
+	return prime;
+}
 
 int main(){
 
-	cin >> a;
-
-	//Factors
-
-	for(i = 2; i < a/2; i++){
-
-		if( a%i == 0){
-
-			for(j = 0; j < 1000;j++){
-
-				if(v[j]==0){
-
-					v[j] = i;
-
-					break;
-				}
-			}
-		}	
-	}
-
-	// Prime factors 
-	for(j = 0; j < 1000; j++){
-		for(i = 2; i < v[j]/2; i++){
-
-			if(v[j]%i == 0){
-
-				v[j] = 0;
-			}
-		}	
-	}
-
-	// Largest
-	for(i = 0; i < 1000; i++){
-
-		if(v[0] < v[i]){
-
-			v[0] = v[i];
+	//Fatores
+	long long number=600851475143;
+	for(int i=2;i<=pow(number,0.5);i++){
+		if(number%i==0){
+			factor.push_back(i);
+			factor.push_back(number/i);
 		}
 	}
 
-	cout << v[0];
+	long long largest=0;
+
+	//Fatores primos
+	for(int i=0;i<factor.size();i++){
+		if(isPrime(factor[i])) p_factor.push_back(factor[i]);
+	}
+	//Maior fator primo
+	for(int i=0;i<p_factor.size();i++){
+		if(p_factor[i]>largest) largest=p_factor[i];
+	}
+
+	cout << largest << "\n";
 
 	return 0;
 }
